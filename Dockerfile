@@ -1,10 +1,13 @@
 FROM python:3.11-slim
-WORKDIR /app
-COPY . /app 
-RUN pip install --upgrade pip
-RUN pip install Flask==2.3.2
-EXPOSE 5000
-ENV key=app.py
-ENV RUN=0.0.0.0
-CMD ["flask","run"]
 
+WORKDIR /app
+
+COPY requirements.txt . 
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
